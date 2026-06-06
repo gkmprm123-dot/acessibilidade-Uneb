@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acessibilidade em Jogo - UNEB</title>
+    <style>
+        /* Estilos focados em acessibilidade e design limpo */
+        :root {
+            --primary-color: #0056b3; /* Azul institucional */
+            --secondary-color: #28a745; /* Verde para destaque */
+            --text-color: #212529;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 3px solid var(--primary-color);
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        .uneb-tag {
+            background-color: #e6f0fa;
+            color: var(--primary-color);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        header h1 {
+            margin: 5px 0;
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Seção do Jogo Principal */
+        .main-game {
+            background-color: var(--card-bg);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .main-game h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        /* Seção de Quizzes em Colunas */
+        .quizzes-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .quizzes-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Botões Acessíveis e Chamativos */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #004085;
+        }
+
+        .btn-game {
+            background-color: var(--secondary-color);
+            font-size: 1.2rem;
+            padding: 15px 35px;
+        }
+
+        .btn-game:hover {
+            background-color: #1e7e34;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 10px;
+            font-size: 0.9rem;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="uneb-tag">Parceria Oficial UNEB</div>
+        <h1>Acessibilidade em Jogo</h1>
+        <p>Universidade do Estado da Bahia — Projeto de Conscientização e Inclusão</p>
+    </header>
+
+    <div class="container">
+        
+        <p class="intro">
+            Seja bem-vindo(a)! Este espaço reúne ferramentas interativas desenvolvidas para ensinar e conscientizar sobre a importância da acessibilidade. Explore o nosso jogo principal e teste seus conhecimentos nos quizzes abaixo.
+        </p>
+
+        <!-- SEÇÃO DO JOGO PRINCIPAL -->
+        <section class="main-game">
+            <h2>🎮 Jogo da Acessibilidade</h2>
+            <p>Aprenda na prática os desafios e as soluções de acessibilidade no cotidiano através deste jogo interativo e educativo.</p>
+            <!-- SUBSTITUA O LINK ABAIXO PELO LINK DO SEU JOGO -->
+            <a href="https://LINK-DO-SEU-JOGO-AQUI.com" class="btn btn-game" target="_blank">CLIQUE AQUI PARA JOGAR</a>
+        </section>
+
+        <!-- SEÇÃO DOS QUIZZES -->
+        <div class="quizzes-container">
+            
+            <!-- QUIZ 1 -->
+            <section class="quiz-card">
+                <h3>📝 Primeiro Quiz</h3>
+                <p>Descubra o quanto você sabe sobre os conceitos básicos de inclusão e acessibilidade.</p>
+                <!-- SUBSTITUA O LINK ABAIXO PELO LINK DO SEU QUIZ 1 -->
+                <a href="https://LINK-DO-QUIZ-1-AQUI.com" class="btn" target="_blank">Responder Quiz 1</a>
+            </section>
+
+            <!-- QUIZ 2 -->
+            <section class="quiz-card">
+                <h3>📝 Segundo Quiz</h3>
+                <p>Teste seus conhecimentos sobre acessibilidade digital e barreiras atitudinais.</p>
+                <!-- SUBSTITUA O LINK ABAIXO PELO LINK DO SEU QUIZ 2 -->
+                <a href="https://LINK-DO-QUIZ-2-AQUI.com" class="btn" target="_blank">Responder Quiz 2</a>
+            </section>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Projeto Acessibilidade em Jogo. Desenvolvido em parceria com a UNEB.</p>
+    </footer>
+
+</body>
+</html>
