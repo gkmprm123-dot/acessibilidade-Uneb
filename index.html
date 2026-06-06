@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acessibilidade em Jogo - UNEB</title>
     <style>
-        /* Estilos focados em acessibilidade e design limpo */
+        /* Variáveis de Cores - Padrão de Acessibilidade */
         :root {
-            --primary-color: #0056b3; /* Azul institucional */
-            --secondary-color: #28a745; /* Verde para destaque */
+            --primary-color: #0056b3;
+            --primary-hover: #004085;
+            --secondary-color: #28a745;
+            --secondary-hover: #1e7e34;
             --text-color: #212529;
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
 
         body {
@@ -23,10 +27,56 @@
             padding: 0;
         }
 
+        /* MENU DE NAVEGAÇÃO SUPERIOR - Essencial para Sites Grandes */
+        nav {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid #dee2e6;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* CABEÇALHO */
         header {
             background-color: var(--card-bg);
             border-bottom: 3px solid var(--primary-color);
-            padding: 20px 10px;
+            padding: 40px 20px;
             text-align: center;
         }
 
@@ -34,144 +84,246 @@
             background-color: #e6f0fa;
             color: var(--primary-color);
             display: inline-block;
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 20px;
             font-weight: bold;
             font-size: 0.9rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         header h1 {
             margin: 5px 0;
             color: var(--primary-color);
+            font-size: 2.2rem;
         }
 
         .container {
-            max-width: 800px;
-            margin: 30px auto;
+            max-width: 1000px;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
         .intro {
             text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            color: #495057;
         }
 
-        /* Seção do Jogo Principal */
-        .main-game {
+        /* ESTRUTURA DO JOGO PRINCIPAL (Imagem + Conteúdo Lado a Lado) */
+        .main-game-card {
             background-color: var(--card-bg);
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            margin-bottom: 50px;
+            border: 1px solid #e2e8f0;
         }
 
-        .main-game h2 {
+        .card-image-box {
+            position: relative;
+            min-height: 250px;
+        }
+
+        .card-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+        }
+
+        .card-content {
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-content h2 {
             color: var(--primary-color);
             margin-top: 0;
+            font-size: 1.6rem;
         }
 
-        /* Seção de Quizzes em Colunas */
-        .quizzes-container {
+        /* GRADE DOS QUIZZES (Dois Lado a Lado) */
+        .quizzes-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        @media (max-width: 600px) {
-            .quizzes-container {
-                grid-template-columns: 1fr;
-            }
+            gap: 30px;
         }
 
         .quiz-card {
             background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Botões Acessíveis e Chamativos */
+        .quiz-img-box {
+            height: 160px;
+            width: 100%;
+        }
+
+        .quiz-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .quiz-content {
+            padding: 25px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .quiz-content h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        /* BOTÕES INTERATIVOS AVANÇADOS (Com Sombra e Efeito de Brilho/Subida) */
         .btn {
             display: inline-block;
-            background-color: var(--primary-color);
             color: white;
-            padding: 12px 24px;
+            padding: 12px 28px;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: bold;
-            margin-top: 15px;
-            transition: background-color 0.2s;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            cursor: pointer;
         }
 
-        .btn:hover {
-            background-color: #004085;
+        .btn-blue {
+            background-color: var(--primary-color);
         }
 
-        .btn-game {
+        .btn-blue:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px); /* Faz o botão subir levemente */
+            box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3); /* Efeito de brilho azul */
+        }
+
+        .btn-green {
             background-color: var(--secondary-color);
-            font-size: 1.2rem;
-            padding: 15px 35px;
+            font-size: 1.1rem;
+            padding: 14px 32px;
         }
 
-        .btn-game:hover {
-            background-color: #1e7e34;
+        .btn-green:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3); /* Efeito de brilho verde */
+        }
+
+        /* RESPONSIVIDADE (Para Celular) */
+        @media (max-width: 768px) {
+            .main-game-card {
+                grid-template-columns: 1fr;
+            }
+            .quizzes-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
 
         footer {
             text-align: center;
-            padding: 40px 10px;
-            font-size: 0.9rem;
+            padding: 50px 20px;
+            font-size: 0.95rem;
             color: #6c757d;
             border-top: 1px solid #dee2e6;
-            margin-top: 60px;
+            margin-top: 80px;
+            background-color: var(--card-bg);
         }
     </style>
 </head>
 <body>
 
+    <!-- MENU DE NAVEGAÇÃO (Fácil de adicionar links no futuro para expandir o site) -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">♿ Acessibilidade UNEB</a>
+            <ul class="nav-links">
+                <li><a href="#">Início</a></li>
+                <li><a href="#jogo">O Jogo</a></li>
+                <li><a href="#quizzes">Quizzes</a></li>
+                <!-- Para deixar o site gigante no futuro, basta criar arquivos como 'artigos.html' e lincar aqui -->
+                <li><a href="#">Artigos</a></li>
+                <li><a href="#">Sobre o Projeto</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <header>
         <div class="uneb-tag">Parceria Oficial UNEB</div>
         <h1>Acessibilidade em Jogo</h1>
-        <p>Universidade do Estado da Bahia — Projeto de Conscientização e Inclusão</p>
+        <p>Universidade do Estado da Bahia — Campus Salvador</p>
     </header>
 
     <div class="container">
         
         <p class="intro">
-            Seja bem-vindo(a)! Este espaço reúne ferramentas interativas desenvolvidas para ensinar e conscientizar sobre a importância da acessibilidade. Explore o nosso jogo principal e teste seus conhecimentos nos quizzes abaixo.
+            Seja bem-vindo(a) ao portal oficial do nosso projeto de inclusão! Aqui reunimos tecnologia e gamificação para ensinar, conscientizar e debater a importância da acessibilidade arquitetônica, digital e atitudinal.
         </p>
 
-        <!-- SEÇÃO DO JOGO PRINCIPAL -->
-        <section class="main-game">
-            <h2>🎮 Jogo da Acessibilidade</h2>
-            <p>Aprenda na prática os desafios e as soluções de acessibilidade no cotidiano através deste jogo interativo e educativo.</p>
-            <!-- SUBSTITUA O LINK ABAIXO PELO LINK DO SEU JOGO -->
-            <a href="https://LINK-DO-SEU-JOGO-AQUI.com" class="btn btn-game" target="_blank">CLIQUE AQUI PARA JOGAR</a>
+        <!-- SEÇÃO DO JOGO PRINCIPAL (Com imagem e botão interativo) -->
+        <section class="main-game-card" id="jogo">
+            <div class="card-image-box">
+                <!-- Imagem ilustrativa de calçada tátil / jogo de cidade -->
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=cover" alt="Tecnologia e acessibilidade">
+            </div>
+            <div class="card-content">
+                <h2>🎮 Jogo da Acessibilidade</h2>
+                <p>Vivencie os desafios do cotidiano urbano e aprenda soluções práticas de inclusão através de um simulador interativo feito para toda a comunidade acadêmica.</p>
+                <a href="https://LINK-DO-SEU-JOGO-AQUI.com" class="btn btn-green" target="_blank">CLIQUE AQUI PARA JOGAR</a>
+            </div>
         </section>
 
         <!-- SEÇÃO DOS QUIZZES -->
-        <div class="quizzes-container">
+        <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 30px;" id="quizzes">📝 Teste Seus Conhecimentos</h2>
+        
+        <div class="quizzes-grid">
             
             <!-- QUIZ 1 -->
             <section class="quiz-card">
-                <h3>📝 Primeiro Quiz</h3>
-                <p>Descubra o quanto você sabe sobre os conceitos básicos de inclusão e acessibilidade.</p>
-                <!-- SUBSTITUA O LINK ABAIXO PELO LINK DO SEU QUIZ 1 -->
-                <a href="https://LINK-DO-QUIZ-1-AQUI.com" class="btn" target="_blank">Responder Quiz 1</a>
+                <div class="quiz-img-box">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&auto=format&fit=cover" alt="Estudante escrevendo">
+                </div>
+                <div class="quiz-content">
+                    <div>
+                        <h3>Primeiro Quiz</h3>
+                        <p>Descubra o quanto você compreende sobre os conceitos fundamentais de leis, termos corretos e direitos da pessoa com deficiência.</p>
+                    </div>
+                    <a href="https://LINK-DO-QUIZ-1-AQUI.com" class="btn btn-blue" target="_blank">Responder Quiz 1</a>
+                </div>
             </section>
 
             <!-- QUIZ 2 -->
             <section class="quiz-card">
-                <h3>📝 Segundo Quiz</h3>
-                <p>Teste seus conhecimentos sobre acessibilidade digital e barreiras atitudinais.</p>
-                <!-- SUBSTITUA O LINK ABAIXO PELO LINK DO SEU QUIZ 2 -->
-                <a href="https://LINK-DO-QUIZ-2-AQUI.com" class="btn" target="_blank">Responder Quiz 2</a>
+                <div class="quiz-img-box">
+                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=500&auto=format&fit=cover" alt="Pessoas trabalhando em telas">
+                </div>
+                <div class="quiz-content">
+                    <div>
+                        <h3>Segundo Quiz</h3>
+                        <p>O foco aqui é o ambiente virtual. Você sabe como criar conteúdos digitais acessíveis? Teste-se agora mesmo.</p>
+                    </div>
+                    <a href="https://LINK-DO-QUIZ-2-AQUI.com" class="btn btn-blue" target="_blank">Responder Quiz 2</a>
+                </div>
             </section>
 
         </div>
@@ -179,7 +331,8 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Projeto Acessibilidade em Jogo. Desenvolvido em parceria com a UNEB.</p>
+        <p>&copy; 2026 Projeto Acessibilidade em Jogo. Todos os direitos reservados.</p>
+        <p>Desenvolvido em cooperação técnica com a Universidade do Estado da Bahia (UNEB).</p>
     </footer>
 
 </body>
