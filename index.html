@@ -3,336 +3,669 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acessibilidade em Jogo - UNEB</title>
+    <title>Acessibilidade: Jogos & Quiz</title>
+    <!-- Ícones FontAwesome para as categorias e botões -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Variáveis de Cores - Padrão de Acessibilidade */
         :root {
-            --primary-color: #0056b3;
-            --primary-hover: #004085;
-            --secondary-color: #28a745;
-            --secondary-hover: #1e7e34;
-            --text-color: #212529;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
+            --primary-blue: #0b57d0;
+            --dark-blue: #083b8c;
+            --light-blue: #e8f0fe;
+            --bg-gradient: linear-gradient(135deg, #cce0ff 0%, #e8f1ff 100%);
+            --text-main: #1f1f1f;
+            --text-sub: #5f6368;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow: 0 8px 24px rgba(11, 87, 208, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background-image: url('fundo-uneb.png'); /* O seu fundo da UNEB */
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* 1. BARRA DE NAVEGAÇÃO */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--dark-blue);
+        }
+
+        .nav-brand i { font-size: 1.8rem; }
+        .brand-text h2 { margin: 0; font-size: 1.3rem; font-weight: 700; line-height: 1; }
+        .brand-text span { font-size: 0.9rem; color: var(--text-sub); }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
             margin: 0;
             padding: 0;
         }
 
-        /* MENU DE NAVEGAÇÃO SUPERIOR - Essencial para Sites Grandes */
-        nav {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid #dee2e6;
-            padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: var(--transition);
         }
 
-        .nav-container {
-            max-width: 1100px;
+        .nav-menu a.active, .nav-menu a:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #dadce0;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.7);
+            width: 180px;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            width: 240px;
+            outline: none;
+            border-color: var(--primary-blue);
+            background: #fff;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            color: var(--text-sub);
+        }
+
+        .btn-login {
+            background-color: var(--dark-blue);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .main-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 40px 4%;
+        }
+
+        /* 2. SEÇÃO HERO */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .hero-left .tag {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-left h1 {
+            font-size: 3.2rem;
+            color: var(--dark-blue);
+            margin: 15px 0;
+            line-height: 1.15;
+            font-weight: 800;
+        }
+
+        .hero-left p {
+            font-size: 1.15rem;
+            color: var(--text-sub);
+            margin-bottom: 30px;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-hero-primary {
+            background: var(--dark-blue);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(8, 59, 140, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .btn-hero-secondary {
+            background: white;
+            color: var(--dark-blue);
+            border: 1px solid #dadce0;
+            padding: 14px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .btn-hero-secondary:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+        }
+
+        /* BANNER DO HERO COM AS ESTATÍSTICAS ACOPLADAS */
+        .hero-right-container {
+            position: relative;
+        }
+
+        .hero-banner-img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            display: block;
+        }
+
+        /* PAINEL DE ESTATÍSTICAS FLUTUANTE */
+        .stats-panel {
+            background: var(--dark-blue);
+            color: white;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            position: absolute;
+            bottom: -30px;
+            left: 5%;
+            right: 5%;
+            box-shadow: 0 10px 30px rgba(8, 59, 140, 0.25);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stat-item i { font-size: 1.8rem; opacity: 0.9; }
+        .stat-info h3 { margin: 0; font-size: 1.4rem; font-weight: 700; }
+        .stat-info p { margin: 0; font-size: 0.8rem; opacity: 0.7; }
+
+        /* 3. SEÇÃO DE CATEGORIAS */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin: 60px 0 25px 0;
+        }
+
+        .section-header h2 { font-size: 1.7rem; color: var(--dark-blue); margin: 0 0 5px 0; }
+        .section-header p { margin: 0; color: var(--text-sub); font-size: 0.95rem; }
+        .btn-view-all { text-decoration: none; color: var(--primary-blue); font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .btn-view-all:hover { text-decoration: underline; }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.7);
+            padding: 20px 15px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            background: white;
+            border-color: var(--primary-blue);
+        }
+
+        .category-card i {
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            background: var(--light-blue);
+            padding: 12px;
+            border-radius: 50%;
+        }
+
+        .cat-info h4 { margin: 0; font-size: 0.9rem; font-weight: 700; }
+        .cat-info span { font-size: 0.75rem; color: var(--text-sub); }
+
+        /* 4. SEÇÃO EM DESTAQUE */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .featured-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.6);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .featured-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(11, 87, 208, 0.15);
+        }
+
+        .card-thumb {
+            height: 160px;
+            position: relative;
+        }
+
+        .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .badge-type {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255,255,255,0.9);
+            color: var(--dark-blue);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .featured-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .featured-content h3 { margin: 0 0 10px 0; font-size: 1.15rem; color: var(--dark-blue); }
+        .featured-content p { margin: 0 0 20px 0; font-size: 0.88rem; color: var(--text-sub); line-height: 1.4; }
+
+        .btn-card-action {
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .featured-card:hover .btn-card-action {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* 5. RODAPÉ INSTITUCIONAL (COM LOGO UNEB) */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 30px 5%;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1280px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .nav-logo {
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
+            flex-wrap: wrap;
             gap: 20px;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* CABEÇALHO */
-        header {
-            background-color: var(--card-bg);
-            border-bottom: 3px solid var(--primary-color);
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .uneb-tag {
-            background-color: #e6f0fa;
-            color: var(--primary-color);
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        header h1 {
-            margin: 5px 0;
-            color: var(--primary-color);
-            font-size: 2.2rem;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .intro {
-            text-align: center;
-            font-size: 1.15rem;
-            max-width: 800px;
-            margin: 0 auto 50px auto;
-            color: #495057;
-        }
-
-        /* ESTRUTURA DO JOGO PRINCIPAL (Imagem + Conteúdo Lado a Lado) */
-        .main-game-card {
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            margin-bottom: 50px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .card-image-box {
-            position: relative;
-            min-height: 250px;
-        }
-
-        .card-image-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-        }
-
-        .card-content {
-            padding: 35px;
+        .footer-pillars {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            gap: 35px;
         }
 
-        .card-content h2 {
-            color: var(--primary-color);
-            margin-top: 0;
-            font-size: 1.6rem;
-        }
+        .pillar { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; opacity: 0.9; }
+        .pillar i { font-size: 1.3rem; }
 
-        /* GRADE DOS QUIZZES (Dois Lado a Lado) */
-        .quizzes-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .quiz-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
+        .uneb-footer-logo {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            border-left: 1px solid rgba(255,255,255,0.3);
+            padding-left: 20px;
         }
 
-        .quiz-img-box {
-            height: 160px;
-            width: 100%;
+        .uneb-footer-logo img { height: 45px; filter: brightness(0) invert(1); } /* Torna o logo branco */
+        .uneb-text h4 { margin: 0; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.5px; }
+        .uneb-text p { margin: 0; font-size: 0.7rem; opacity: 0.6; }
+
+        /* RESPONSIVIDADE PARA CELULARES */
+        @media (max-width: 1024px) {
+            .categories-grid { grid-template-columns: repeat(3, 1fr); }
+            .featured-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-section { grid-template-columns: 1fr; text-align: center; }
+            .hero-left p { margin: 0 auto 30px auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-banner-img { max-height: 400px; object-fit: cover; }
         }
 
-        .quiz-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .quiz-content {
-            padding: 25px;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .quiz-content h3 {
-            margin-top: 0;
-            color: var(--primary-color);
-        }
-
-        /* BOTÕES INTERATIVOS AVANÇADOS (Com Sombra e Efeito de Brilho/Subida) */
-        .btn {
-            display: inline-block;
-            color: white;
-            padding: 12px 28px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .btn-blue {
-            background-color: var(--primary-color);
-        }
-
-        .btn-blue:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-3px); /* Faz o botão subir levemente */
-            box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3); /* Efeito de brilho azul */
-        }
-
-        .btn-green {
-            background-color: var(--secondary-color);
-            font-size: 1.1rem;
-            padding: 14px 32px;
-        }
-
-        .btn-green:hover {
-            background-color: var(--secondary-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3); /* Efeito de brilho verde */
-        }
-
-        /* RESPONSIVIDADE (Para Celular) */
-        @media (max-width: 768px) {
-            .main-game-card {
-                grid-template-columns: 1fr;
-            }
-            .quizzes-grid {
-                grid-template-columns: 1fr;
-            }
-            .nav-container {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-
-        footer {
-            text-align: center;
-            padding: 50px 20px;
-            font-size: 0.95rem;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            margin-top: 80px;
-            background-color: var(--card-bg);
+        @media (max-width: 680px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-menu { flex-wrap: wrap; justify-content: center; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .featured-grid { grid-template-columns: 1fr; }
+            .stats-panel { flex-direction: column; gap: 15px; position: relative; bottom: 0; margin-top: 20px; }
+            .footer-container { flex-direction: column; text-align: center; }
+            .footer-pillars { flex-direction: column; gap: 15px; }
+            .uneb-footer-logo { border-left: none; padding-left: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MENU DE NAVEGAÇÃO (Fácil de adicionar links no futuro para expandir o site) -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-logo">♿ Acessibilidade UNEB</a>
-            <ul class="nav-links">
-                <li><a href="#">Início</a></li>
-                <li><a href="#jogo">O Jogo</a></li>
-                <li><a href="#quizzes">Quizzes</a></li>
-                <!-- Para deixar o site gigante no futuro, basta criar arquivos como 'artigos.html' e lincar aqui -->
-                <li><a href="#">Artigos</a></li>
-                <li><a href="#">Sobre o Projeto</a></li>
-            </ul>
+    <!-- 1. BARRA DE NAVEGAÇÃO -->
+    <nav class="navbar">
+        <a href="#" class="nav-brand">
+            <i class="fa-solid fa-wheelchair-move"></i>
+            <div class="brand-text">
+                <h2>Acessibilidade</h2>
+                <span>Jogos & Quiz</span>
+            </div>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="#" class="active">Início</a></li>
+            <li><a href="#jogos">Jogos</a></li>
+            <li><a href="#quizzes">Quiz</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Recursos</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar...">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <button class="btn-login"><i class="fa-solid fa-user"></i> Entrar</button>
         </div>
     </nav>
 
-    <header>
-        <div class="uneb-tag">Parceria Oficial UNEB</div>
-        <h1>Acessibilidade em Jogo</h1>
-        <p>Universidade do Estado da Bahia — Campus Salvador</p>
-    </header>
+    <div class="main-container">
 
-    <div class="container">
-        
-        <p class="intro">
-            Seja bem-vindo(a) ao portal oficial do nosso projeto de inclusão! Aqui reunimos tecnologia e gamificação para ensinar, conscientizar e debater a importância da acessibilidade arquitetônica, digital e atitudinal.
-        </p>
-
-        <!-- SEÇÃO DO JOGO PRINCIPAL (Com imagem e botão interativo) -->
-        <section class="main-game-card" id="jogo">
-            <div class="card-image-box">
-                <!-- Imagem ilustrativa de calçada tátil / jogo de cidade -->
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=cover" alt="Tecnologia e acessibilidade">
+        <!-- 2. SEÇÃO HERO -->
+        <section class="hero-section">
+            <div class="hero-left">
+                <span class="tag">Aprenda • Jogue • Inclua</span>
+                <h1>Acessibilidade se aprende jogando!</h1>
+                <p>Aqui você encontra jogos e quizzes interativos para aprender, se divertir e promover um mundo mais acessível para todos.</p>
+                <div class="hero-buttons">
+                    <a href="#jogos" class="btn-hero-primary"><i class="fa-solid fa-gamepad"></i> Explorar Jogos</a>
+                    <a href="#quizzes" class="btn-hero-secondary"><i class="fa-solid fa-circle-question"></i> Fazer Quiz</a>
+                </div>
             </div>
-            <div class="card-content">
-                <h2>🎮 Jogo da Acessibilidade</h2>
-                <p>Vivencie os desafios do cotidiano urbano e aprenda soluções práticas de inclusão através de um simulador interativo feito para toda a comunidade acadêmica.</p>
-                <a href="https://LINK-DO-SEU-JOGO-AQUI.com" class="btn btn-green" target="_blank">CLIQUE AQUI PARA JOGAR</a>
+            <div class="hero-right-container">
+                <!-- Imagem do grupo de jovens com o símbolo de inclusão do banner principal -->
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=700&auto=format&fit=cover" alt="Grupo trabalhando inclusão" class="hero-banner-img">
+                
+                <!-- Painel de Estatísticas Flutuante -->
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <div class="stat-info">
+                            <h3>20+</h3>
+                            <p>Jogos Interativos</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <div class="stat-info">
+                            <h3>15+</h3>
+                            <p>Quizzes</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fa-solid fa-users"></i>
+                        <div class="stat-info">
+                            <h3>100%</h3>
+                            <p>Inclusão</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- SEÇÃO DOS QUIZZES -->
-        <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 30px;" id="quizzes">📝 Teste Seus Conhecimentos</h2>
-        
-        <div class="quizzes-grid">
+        <!-- 3. SEÇÃO DE CATEGORIAS -->
+        <section>
+            <div class="section-header">
+                <div>
+                    <h2>Categorias</h2>
+                    <p>Escolha o tema que deseja explorar</p>
+                </div>
+                <a href="#" class="btn-view-all">Ver todas <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
             
-            <!-- QUIZ 1 -->
-            <section class="quiz-card">
-                <div class="quiz-img-box">
-                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&auto=format&fit=cover" alt="Estudante escrevendo">
-                </div>
-                <div class="quiz-content">
-                    <div>
-                        <h3>Primeiro Quiz</h3>
-                        <p>Descubra o quanto você compreende sobre os conceitos fundamentais de leis, termos corretos e direitos da pessoa com deficiência.</p>
+            <div class="categories-grid">
+                <a href="#" class="category-card">
+                    <i class="fa-solid fa-brain"></i>
+                    <div class="cat-info">
+                        <h4>Conscientização</h4>
+                        <span>8 jogos</span>
                     </div>
-                    <a href="https://LINK-DO-QUIZ-1-AQUI.com" class="btn btn-blue" target="_blank">Responder Quiz 1</a>
-                </div>
-            </section>
-
-            <!-- QUIZ 2 -->
-            <section class="quiz-card">
-                <div class="quiz-img-box">
-                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=500&auto=format&fit=cover" alt="Pessoas trabalhando em telas">
-                </div>
-                <div class="quiz-content">
-                    <div>
-                        <h3>Segundo Quiz</h3>
-                        <p>O foco aqui é o ambiente virtual. Você sabe como criar conteúdos digitais acessíveis? Teste-se agora mesmo.</p>
+                </a>
+                <a href="#" class="category-card">
+                    <i class="fa-solid fa-ear-deaf"></i>
+                    <div class="cat-info">
+                        <h4>Def. Auditiva</h4>
+                        <span>6 jogos</span>
                     </div>
-                    <a href="https://LINK-DO-QUIZ-2-AQUI.com" class="btn btn-blue" target="_blank">Responder Quiz 2</a>
-                </div>
-            </section>
+                </a>
+                <a href="#" class="category-card">
+                    <i class="fa-solid fa-eye"></i>
+                    <div class="cat-info">
+                        <h4>Def. Visual</h4>
+                        <span>7 jogos</span>
+                    </div>
+                </a>
+                <a href="#" class="category-card">
+                    <i class="fa-solid fa-wheelchair"></i>
+                    <div class="cat-info">
+                        <h4>Mobilidade</h4>
+                        <span>5 jogos</span>
+                    </div>
+                </a>
+                <a href="#" class="category-card">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    <div class="cat-info">
+                        <h4>Diversidade</h4>
+                        <span>6 jogos</span>
+                    </div>
+                </a>
+                <a href="#" class="category-card">
+                    <i class="fa-solid fa-heart"></i>
+                    <div class="cat-info">
+                        <h4>Atitudes</h4>
+                        <span>4 jogos</span>
+                    </div>
+                </a>
+            </div>
+        </section>
 
-        </div>
+        <!-- 4. SEÇÃO EM DESTAQUE -->
+        <section id="jogos">
+            <div class="section-header">
+                <div>
+                    <h2>Em destaque</h2>
+                    <p>Jogos e quizzes mais populares</p>
+                </div>
+                <a href="#" class="btn-view-all">Ver todas <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="featured-grid">
+                <!-- CARD 1 (JOGO) -->
+                <div class="featured-card">
+                    <div class="card-thumb">
+                        <span class="badge-type" style="background: #e6f4ea; color: #137333;">Jogo</span>
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&auto=format&fit=cover" alt="Mundo Acessível">
+                    </div>
+                    <div class="featured-content">
+                        <div>
+                            <h3>Mundo Acessível</h3>
+                            <p>Construa uma cidade mais inclusiva e aprenda engenharia acessível!</p>
+                        </div>
+                        <!-- SUBSTITUA COM SEU LINK REAL DO JOGO -->
+                        <a href="https://LINK-DO-SEU-JOGO.com" class="btn-card-action" target="_blank">Jogar agora <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- CARD 2 (QUIZ) -->
+                <div class="featured-card" id="quizzes">
+                    <div class="card-thumb">
+                        <span class="badge-type" style="background: #e8f0fe; color: #1557b1;">Quiz</span>
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&auto=format&fit=cover" alt="Você Sabia?">
+                    </div>
+                    <div class="featured-content">
+                        <div>
+                            <h3>Você Sabia?</h3>
+                            <p>Teste seus conhecimentos gerais sobre regras básicas de acessibilidade.</p>
+                        </div>
+                        <!-- SUBSTITUA COM SEU LINK REAL DO QUIZ 1 -->
+                        <a href="https://LINK-DO-QUIZ-1.com" class="btn-card-action" target="_blank">Iniciar quiz <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- CARD 3 (JOGO) -->
+                <div class="featured-card">
+                    <div class="card-thumb">
+                        <span class="badge-type" style="background: #e6f4ea; color: #137333;">Jogo</span>
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=400&auto=format&fit=cover" alt="Desafio da Inclusão">
+                    </div>
+                    <div class="featured-content">
+                        <div>
+                            <h3>Desafio da Inclusão</h3>
+                            <p>Complete as missões cotidianas superando barreiras arquitetônicas.</p>
+                        </div>
+                        <!-- SUBSTITUA COM SEU LINK REAL DO JOGO SEGUNDO -->
+                        <a href="https://LINK-DO-SEU-JOGO-2.com" class="btn-card-action" target="_blank">Jogar agora <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- CARD 4 (QUIZ) -->
+                <div class="featured-card">
+                    <div class="card-thumb">
+                        <span class="badge-type" style="background: #e8f0fe; color: #1557b1;">Quiz</span>
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&auto=format&fit=cover" alt="Mitos e Verdades">
+                    </div>
+                    <div class="featured-content">
+                        <div>
+                            <h3>Mitos e Verdades</h3>
+                            <p>Descubra o que é mito e o que é verdade no universo da inclusão digital.</p>
+                        </div>
+                        <!-- SUBSTITUA COM SEU LINK REAL DO QUIZ 2 -->
+                        <a href="https://LINK-DO-QUIZ-2.com" class="btn-card-action" target="_blank">Iniciar quiz <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
 
+    <!-- 5. RODAPÉ INSTITUCIONAL (COM REQUISITOS DA IMAGEM) -->
     <footer>
-        <p>&copy; 2026 Projeto Acessibilidade em Jogo. Todos os direitos reservados.</p>
-        <p>Desenvolvido em cooperação técnica com a Universidade do Estado da Bahia (UNEB).</p>
+        <div class="footer-container">
+            <div class="footer-pillars">
+                <div class="pillar"><i class="fa-solid fa-brain"></i> Conteúdo acessível para todos</div>
+                <div class="pillar"><i class="fa-solid fa-graduation-cap"></i> Aprendizado interativo</div>
+                <div class="pillar"><i class="fa-solid fa-handshake"></i> Desenvolvido com inclusão</div>
+                <div class="pillar"><i class="fa-solid fa-child-reaching"></i> Para todas as idades</div>
+            </div>
+            
+            <div class="uneb-footer-logo">
+                <!-- Se você tiver o logo oficial da uneb em png, suba no GitHub e mude o src abaixo -->
+                <img src="novo-projeto-1-2.jpg" alt="Logo UNEB">
+                <div class="uneb-text">
+                    <h4>UNEB</h4>
+                    <p>Universidade do Estado da Bahia</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
 </body>
